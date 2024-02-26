@@ -47,6 +47,7 @@ namadaw derive --alias shoeiico_namada_relayer
 ```
 # Prepare config.toml for Hermes
 mkdir $HOME/.hermes  
+export BASE_DIR=$HOME/.local/share/namada
 export HERMES_CONFIG=$HOME/.hermes/config.toml  
 vi $HERMES_CONFIG
 ```
@@ -217,9 +218,13 @@ pagination:
 ```
 
 # IBC transfer Namada <-> Osmosis 
-export BASE_DIR_A=$HOME/.local/share/namada
+- Start Hermes
 ```
-namadac --base-dir $BASE_DIR_A \
+hermes --config $HOME/.hermes/config.toml start
+```
+
+```
+namadac --base-dir $BASE_DIR \
     ibc-transfer \
     --amount 1 \
     --source shoeiico_namada_relayer \
@@ -253,6 +258,7 @@ osmosisd tx ibc-transfer transfer \
   --home "$HOME/.osmosisd" \
   --chain-id osmo-test-5 \
   --yes
+```
 ```
 Enter keyring passphrase (attempt 1/3):
 gas estimate: 131186
