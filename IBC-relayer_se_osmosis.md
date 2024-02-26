@@ -1,8 +1,8 @@
-To complete this subclass "Operating IBC/ Interoperability infrastructure", I demonstrating how to create IBC relayer channel on the fullnodes of Namada SE testnet and Osmosis testnet. 
+To complete this subclass "Operating IBC/ Interoperability infrastructure", I demonstrate how to create IBC relayer channel on the fullnodes of Namada SE testnet and Osmosis testnet. 
 
-1. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1
-2. Deploy Namada fullnode on another server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166
-3. Prepare Relayer accounts for Namada and Osmosis
+1. Deploy Namada fullnode on remote server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166
+2. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1
+3. Prepare Relayer accounts for Namada and Osmosis 
 4. Prepare config.toml for Hermes
 5. Add relayer accounts to Hermes
 6. Create relayer channel
