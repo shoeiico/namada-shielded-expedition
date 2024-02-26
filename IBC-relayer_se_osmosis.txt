@@ -1,0 +1,11 @@
+osmosisd keys add shoeiico_osmosis_relayer
+Enter keyring passphrase (attempt 1/3):
+- address: osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk
+  name: shoeiico_osmosis_relayer
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A33Dcyg+5189nb+w8p/iZZHazqvYmoFBKzwH3KNC88g/"}'
+  type: local
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+roast collect museum rib lobster custom beach myself trash slice turn kiss december tonight stone aerobic stomach slight web tattoo size lunar cancel width
