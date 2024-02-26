@@ -1,3 +1,10 @@
+To complete this subclass "Operating IBC/ Interoperability infrastructure", I demonstrating how to create IBC relayer channel on the fullnodes of Namada SE testnet and Osmosis testnet. 
+
+1. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1
+2. Deploy Namada fullnode on another server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166
+3. Prepare Relayer accounts for Namada and Osmosis
+4. 
+
 osmosisd keys add shoeiico_osmosis_relayer
 Enter keyring passphrase (attempt 1/3):
 - address: osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk
