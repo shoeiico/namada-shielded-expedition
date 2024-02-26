@@ -232,4 +232,48 @@ pagination:
   next_key: null
   total: "0"
 
+namadac init-account \
+  --alias shoeiico-established-account \
+  --public-keys shoeiico_namada_relayer \
+  --signing-keys shoeiico_namada_relayer \
+  --threshold 1 \
+  --node http://213.136.71.166:26657 \
+  --memo tpknam1qp0cyvrh4r5anmslnyda88nrem4easja386jlug369mcw3l3fjqkvueqwqs
+Enter your decryption password: 
+Transaction added to mempool.
+Wrapper transaction hash: C818C975CD65F008D05AA32DA4B9E0E8326BB066C6856352BA52672470F53307
+Inner transaction hash: D64590906087F1E6BF82C1DC2A9762937542A2997927C4B206A2B03C3E79EE94
+Wrapper transaction accepted at height 69099. Used 22 gas.
+Waiting for inner transaction result...
+Transaction was successfully applied at height 69100. Used 3170 gas.
+The transaction initialized 1 new account
+Added alias shoeiico-established-account for address tnam1qyf32e0w4447cxve3467zwk8qqfgcyl8d5sfq2xg
 
+namadaw gen --shielded --alias shoeiico-spending-key-alias
+Enter your encryption password: 
+Enter same passphrase again: 
+Using HD derivation path m/32'/877'/0'
+Safely store your 24 words mnemonic.
+anxiety impact method imitate rapid pet discover lunch autumn slab discover scorpion have vanish slight album dragon hammer tell donate grow library hamster profit
+Successfully added a spending key with alias: "shoeiico-spending-key-alias"
+
+namadaw find --alias shoeiico-spending-key-alias
+Found shielded keys:
+  Alias "shoeiico-spending-key-alias" (encrypted):
+    Viewing key: zvknam1q0qw3cagqqqqpq8z8g3394t6dga9wwp7djw3p2ydcfc4tenamd6hlsqczplcyr6dktkmfhuhp6s7rlsr52njmzyjx068t4affzu7cjpkd2gsepdr6y5xrjsax8kqge902whej9vdsh5d58r55dr9lfqw926lnv6twfr74tw6d2l4zazeuqazvg93z3rrrs9cz0cfljgze0fttevgcjkt9elakqs9c2a3czapv7369cgsgj4eaj0dppspnjezrv84whwm9p248jyarqspgmdy8
+
+namadac transfer \
+    --token naan \
+    --amount 5 \
+    --target shoeiico-established-account \
+    --source shoeiico_namada_relayer \
+    --signing-keys shoeiico_namada_relayer \
+    --node http://213.136.71.166:26657 \
+    --memo tpknam1qp0cyvrh4r5anmslnyda88nrem4easja386jlug369mcw3l3fjqkvueqwqs
+Enter your decryption password: 
+Transaction added to mempool.
+Wrapper transaction hash: 8587A58C1B4EE84CA7279D846CD640EB4C39F171675A9C734EFD3B6060BF19DE
+Inner transaction hash: DF6569F82C41366593100520ECCC2FDCC7BBD1C45B707431C6045E776A69476E
+Wrapper transaction accepted at height 69120. Used 24 gas.
+Waiting for inner transaction result...
+Transaction was successfully applied at height 69121. Used 7742 gas.
