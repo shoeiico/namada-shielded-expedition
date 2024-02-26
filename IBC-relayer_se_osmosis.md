@@ -47,7 +47,7 @@ namadaw derive --alias shoeiico_namada_relayer
 ```
 # Prepare config.toml for Hermes
 mkdir $HOME/.hermes  
-export BASE_DIR=$HOME/.local/share/namada
+export BASE_DIR=$HOME/.local/share/namada  
 export HERMES_CONFIG=$HOME/.hermes/config.toml  
 vi $HERMES_CONFIG
 ```
@@ -205,8 +205,8 @@ SUCCESS Channel {
 }
 ```
 Now, channels are ready:  
-Namada: channel-451  
-Osmosis: channel-5901  
+Namada: 'channel-451'   
+Osmosis: 'channel-5901'   
 
 - We check balances before IBC transfer.
 ```
@@ -282,7 +282,7 @@ tx: null
 txhash: 52DCC3BDE099A0768EF01756EB19C7EE227B68F33914BE6185D7892209B9B4ED
 ```
 
-- Check balances on both sids.
+- Check balances on both sides.
 ```
 namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
 naan: 253.672897
@@ -298,6 +298,6 @@ pagination:
   next_key: null
   total: "0"
 ```
-Now, We can confirm that the account shoeiico_namada_relayer on Namada has received 'transfer/channel-451/uosmo: 1000000' and the account shoeiico_osmosis_relayer has received 1 'denom: ibc/D7C4C279DBE2F7B4140C8AFBB00D16EBBC71177FA65ABB135610F6B497108545'.   
+We confirm that the account shoeiico_namada_relayer on Namada has received _'transfer/channel-451/uosmo: 1000000'_ and the account shoeiico_osmosis_relayer has received 1 _'denom: ibc/D7C4C279DBE2F7B4140C8AFBB00D16EBBC71177FA65ABB135610F6B497108545'_   
 
-We've created channels successfully.
+Now, We've created channels successfully!
