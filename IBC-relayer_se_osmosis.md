@@ -45,12 +45,9 @@ namadac utils join-network --chain-id shielded-expedition.88f17d1d14
 ```
 namadaw derive --alias shoeiico_namada_relayer
 ```
-
-
-Install Hermes
-
-Setup Hermes config
-export HERMES_CONFIG=$HOME/.hermes/config.toml
+# Prepare config.toml for Hermes
+mkdir $HOME/.hermes  
+export HERMES_CONFIG=$HOME/.hermes/config.toml  
 vi $HERMES_CONFIG
 ```
 [global]
@@ -83,7 +80,7 @@ port = 3001
 [[chains]]
 id = 'shielded-expedition.88f17d1d14' 
 type = 'Namada'
-rpc_addr = 'http://213.136.71.166:26657'  
+rpc_addr = 'http://213.136.71.166:26657'  # remote Namada fullnode rpc
 grpc_addr = 'http://213.136.71.166:9090' 
 event_source = { mode = 'push', url = 'ws://213.136.71.166:26657/websocket', batch_delay = '500ms' } 
 account_prefix = ''
