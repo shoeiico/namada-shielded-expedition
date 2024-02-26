@@ -159,3 +159,77 @@ SUCCESS Channel {
     },
     connection_delay: 0ns,
 }
+
+namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
+naan: 259.672897
+
+osmosisd query bank balances osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk
+balances:
+- amount: "249983700"
+  denom: uosmo
+pagination:
+  next_key: null
+  total: "0"
+
+export BASE_DIR_A=$HOME/.local/share/namada
+namadac --base-dir $BASE_DIR_A \
+    ibc-transfer \
+    --amount 1 \
+    --source shoeiico_namada_relayer \
+    --receiver osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk \
+    --token naan \
+    --channel-id channel-451 \
+    --node http://213.136.71.166:26657 \
+    --memo tpknam1qp0cyvrh4r5anmslnyda88nrem4easja386jlug369mcw3l3fjqkvueqwqs
+Enter your decryption password: 
+Transaction added to mempool.
+Wrapper transaction hash: E4D73493D344116F9E8ECF191EC9EB9CFCA69AD68F69B5823751360F3E495E8A
+Inner transaction hash: 9DE7FD3F4AFC34897F0070CF7D1BAFF692B085275D31F6CE96E0E9D0B8A38749
+Wrapper transaction accepted at height 69044. Used 26 gas.
+Waiting for inner transaction result...
+Transaction was successfully applied at height 69045. Used 6193 gas.
+
+osmosisd tx ibc-transfer transfer \
+  transfer \
+  channel-5901 \
+  tnam1qzanc7wtv7qufuw8rzg5tteua2hccks4vyxcnmd7 \
+  1000000uosmo \
+  --from shoeiico_osmosis_relayer \
+  --gas auto \
+  --gas-prices 0.035uosmo \
+  --gas-adjustment 1.2 \
+  --node "http://127.0.0.1:26657" \
+  --home "$HOME/.osmosisd" \
+  --chain-id osmo-test-5 \
+  --yes
+Enter keyring passphrase (attempt 1/3):
+gas estimate: 131186
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: '[]'
+timestamp: ""
+tx: null
+txhash: 52DCC3BDE099A0768EF01756EB19C7EE227B68F33914BE6185D7892209B9B4ED
+
+namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
+naan: 253.672897
+transfer/channel-451/uosmo: 1000000
+
+osmosisd query bank balances osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk
+balances:
+- amount: "1"
+  denom: ibc/D7C4C279DBE2F7B4140C8AFBB00D16EBBC71177FA65ABB135610F6B497108545
+- amount: "248979108"
+  denom: uosmo
+pagination:
+  next_key: null
+  total: "0"
+
+
