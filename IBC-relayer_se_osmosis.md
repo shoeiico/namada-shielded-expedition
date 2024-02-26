@@ -14,7 +14,7 @@ _This docuement starts from step 3 because we mainly focus on IBC relayer operat
 
 **Achievement:**
 Namada <-> Osmosis  
-channel-451<->channel-5901
+channel-451 <-> channel-5901
 
 # Prepare accounts for Osmosis and Namada
 - Generate a new account for osmos
@@ -204,6 +204,11 @@ SUCCESS Channel {
     connection_delay: 0ns,
 }
 ```
+Now, channels are ready:  
+Namada: channel-451  
+Osmosis: channel-5901  
+
+- We check balances before IBC transfer.
 ```
 namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
 naan: 259.672897
@@ -222,7 +227,7 @@ pagination:
 ```
 hermes --config $HOME/.hermes/config.toml start
 ```
-
+- We tranfer 1 naan from namada to osmosis via channel-451
 ```
 namadac --base-dir $BASE_DIR \
     ibc-transfer \
@@ -243,7 +248,7 @@ Wrapper transaction accepted at height 69044. Used 26 gas.
 Waiting for inner transaction result...
 Transaction was successfully applied at height 69045. Used 6193 gas.
 ```
-
+- We tranfer 1000000uosmo from osmosis to namada via channel-5901
 ```
 osmosisd tx ibc-transfer transfer \
   transfer \
@@ -276,6 +281,8 @@ timestamp: ""
 tx: null
 txhash: 52DCC3BDE099A0768EF01756EB19C7EE227B68F33914BE6185D7892209B9B4ED
 ```
+
+- Check balances on both sids.
 ```
 namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
 naan: 253.672897
@@ -291,3 +298,6 @@ pagination:
   next_key: null
   total: "0"
 ```
+Now, We can confirm that the account shoeiico_namada_relayer on Namada has received 'transfer/channel-451/uosmo: 1000000' and the account shoeiico_osmosis_relayer has received 1 'denom: ibc/D7C4C279DBE2F7B4140C8AFBB00D16EBBC71177FA65ABB135610F6B497108545'.   
+
+We've created channels successfully.
