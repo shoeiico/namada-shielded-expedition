@@ -3,7 +3,7 @@ To complete this subclass "Operating IBC/ Interoperability infrastructure", I de
 
 1. Deploy Namada fullnode on remote server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166  
 2. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1  
-3. Prepare Relayer accounts for Namada and Osmosis   
+3. Prepare relayer accounts for Namada and Osmosis   
 4. Prepare config.toml for Hermes  
 5. Add relayer accounts to Hermes  
 6. Create relayer channel  
@@ -12,7 +12,7 @@ To complete this subclass "Operating IBC/ Interoperability infrastructure", I de
 
 _This docuement starts from step 3 because we mainly focus on IBC relayer operations._
 
-**Achievement:**
+**Achievement:**  
 Namada <-> Osmosis  
 channel-451 <-> channel-5901
 
