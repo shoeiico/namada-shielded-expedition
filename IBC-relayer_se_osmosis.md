@@ -1,20 +1,24 @@
-To complete this subclass "Operating IBC/ Interoperability infrastructure", I demonstrate how to create IBC relayer channel on the fullnodes of Namada SE testnet and Osmosis testnet. 
+# Summary
+To complete this subclass "Operating IBC/ Interoperability infrastructure", I demonstrate how to create IBC relayer channel on the fullnodes of Namada SE testnet and Osmosis testnet.   
 
-1. Deploy Namada fullnode on remote server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166
-2. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1
-3. Prepare Relayer accounts for Namada and Osmosis 
-4. Prepare config.toml for Hermes
-5. Add relayer accounts to Hermes
-6. Create relayer channel
-7. IBC transfer Namada <-> Osmosis
-8. Check balances to confirm if channel is operational.
+1. Deploy Namada fullnode on remote server which chain-id is 'shielded-expedition.88f17d1d14', IP: 213.136.71.166  
+2. Deploy Osmosis fullnode on this server which chain-id is 'osmo-test-5', IP: 127.0.0.1  
+3. Prepare Relayer accounts for Namada and Osmosis   
+4. Prepare config.toml for Hermes  
+5. Add relayer accounts to Hermes  
+6. Create relayer channel  
+7. IBC transfer Namada <-> Osmosis  
+8. Check balances to confirm if channel is operational.  
 
-This docuement starts from step 3 because we mainly focus on IBC relayer operations.
+_This docuement starts from step 3 because we mainly focus on IBC relayer operations._
 
-Achievement:
-Namada <-> Osmosis
+**Achievement:**
+Namada <-> Osmosis  
 channel-451<->channel-5901
 
+# Prepare accounts for Osmosis and Namada
+- Generate a new account for osmos
+```
 osmosisd keys add shoeiico_osmosis_relayer
 Enter keyring passphrase (attempt 1/3):
 - address: osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk
@@ -26,8 +30,22 @@ Enter keyring passphrase (attempt 1/3):
 It is the only way to recover your account if you ever forget your password.
 
 roast collect museum rib lobster custom beach myself trash slice turn kiss december tonight stone aerobic stomach slight web tattoo size lunar cancel width
+```
+Get fauect to shoeiico_osmosis_relayer  
 
-Fauect to shoeiico_osmosis_relayer
+- Install Namada CLI on this server
+```
+cd $HOME && git clone https://github.com/anoma/namada && cd namada && git checkout v0.31.6
+make build-release
+cd $HOME && sudo cp "$HOME/namada/target/release/namada" /usr/local/bin/namada && sudo cp "$HOME/namada/target/release/namadac" /usr/local/bin/namadac && sudo cp "$HOME/namada/target/release/namadan" /usr/local/bin/namadan && sudo cp "$HOME/namada/target/release/namadaw" /usr/local/bin/namadaw && sudo cp "$HOME/namada/target/release/namadar" /usr/local/bin/namadar
+
+namadac utils join-network --chain-id shielded-expedition.88f17d1d14
+```
+- Import previous namada wallet
+```
+namadaw derive --alias shoeiico_namada_relayer
+```
+
 
 Install Hermes
 
