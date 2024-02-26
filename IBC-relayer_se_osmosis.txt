@@ -9,3 +9,153 @@ Enter keyring passphrase (attempt 1/3):
 It is the only way to recover your account if you ever forget your password.
 
 roast collect museum rib lobster custom beach myself trash slice turn kiss december tonight stone aerobic stomach slight web tattoo size lunar cancel width
+
+Fauect to shoeiico_osmosis_relayer
+
+Install Hermes
+
+Setup Hermes config
+export HERMES_CONFIG=$HOME/.hermes/config.toml
+vi $HERMES_CONFIG
+```
+[global]
+log_level = 'info'
+ 
+[mode]
+
+[mode.clients]
+enabled = true
+refresh = true
+misbehaviour = true
+
+[mode.connections]
+enabled = false
+
+[mode.channels]
+enabled = false
+
+[mode.packets]
+enabled = true
+clear_interval = 10
+clear_on_start = false
+tx_confirmation = true
+
+[telemetry]
+enabled = false
+host = '127.0.0.1'
+port = 3001
+
+[[chains]]
+id = 'shielded-expedition.88f17d1d14' 
+type = 'Namada'
+rpc_addr = 'http://213.136.71.166:26657'  
+grpc_addr = 'http://213.136.71.166:9090' 
+event_source = { mode = 'push', url = 'ws://213.136.71.166:26657/websocket', batch_delay = '500ms' } 
+account_prefix = ''
+key_name = 'shoeiico_namada_relayer' 
+store_prefix = 'ibc'
+gas_price = { price = 0.0001, denom = 'tnam1qxvg64psvhwumv3mwrrjfcz0h3t3274hwggyzcee' } 
+rpc_timeout = '30s'
+
+[[chains]]
+id = 'osmo-test-5'
+type = 'CosmosSdk'
+rpc_addr = 'http://127.0.0.1:26657'  # Local Osmos fullnode rpc
+grpc_addr = 'http://127.0.0.1:9090'
+event_source = { mode = 'push', url = 'ws://127.0.0.1:26657/websocket', batch_delay = '500ms' } 
+account_prefix = 'osmo'
+key_name = 'shoeiico_osmosis_relayer'
+address_type = { derivation = 'cosmos' }
+store_prefix = 'ibc'
+default_gas = 400000
+max_gas = 120000000
+gas_price = { price = 0.0025, denom = 'uosmo' }
+gas_multiplier = 1.2
+max_msg_num = 30
+max_tx_size = 1800000
+clock_drift = '15s'
+max_block_time = '30s'
+trusting_period = '4days'
+trust_threshold = { numerator = '1', denominator = '3' }
+rpc_timeout = '30s'
+```
+
+Add relayer keys to Hermes
+echo "roast collect museum rib lobster custom beach myself trash slice turn kiss december tonight stone aerobic stomach slight web tattoo size lunar cancel width" > ./mnemonic_osmo
+hermes --config $HERMES_CONFIG keys add --chain osmo-test-5 --mnemonic-file ./mnemonic_osmo
+hermes --config $HERMES_CONFIG keys add --chain shielded-expedition.88f17d1d14 --key-file $HOME/.local/share/namada/shielded-expedition.88f17d1d14/wallet.toml  
+
+Create Channel
+hermes --config $HERMES_CONFIG \
+  create channel \
+  --a-chain shielded-expedition.88f17d1d14 \
+  --b-chain osmo-test-5 \
+  --a-port transfer \
+  --b-port transfer \
+  --new-client-connection --yes
+2024-02-26T03:48:02.256900Z  INFO ThreadId(01) running Hermes v1.7.4+38f41c6
+2024-02-26T03:48:02.592797Z  INFO ThreadId(01) Creating new clients, new connection, and a new channel with order ORDER_UNORDERED
+2024-02-26T03:48:17.968223Z  INFO ThreadId(01) foreign_client.create{client=osmo-test-5->shielded-expedition.88f17d1d14:07-tendermint-0}: 🍭 client was created successfully id=07-tendermint-1570
+2024-02-26T03:48:23.880685Z  INFO ThreadId(01) foreign_client.create{client=shielded-expedition.88f17d1d14->osmo-test-5:07-tendermint-0}: 🍭 client was created successfully id=07-tendermint-2382
+2024-02-26T03:48:40.408401Z  INFO ThreadId(01) 🥂 shielded-expedition.88f17d1d14 => OpenInitConnection(OpenInit { Attributes { connection_id: connection-681, client_id: 07-tendermint-1570, counterparty_connection_id: None, counterparty_client_id: 07-tendermint-2382 } }) at height 0-68917
+2024-02-26T03:49:19.483570Z  INFO ThreadId(01) 🥂 osmo-test-5 => OpenTryConnection(OpenTry { Attributes { connection_id: connection-2222, client_id: 07-tendermint-2382, counterparty_connection_id: connection-681, counterparty_client_id: 07-tendermint-1570 } }) at height 5-5632895
+2024-02-26T03:49:48.292606Z  INFO ThreadId(01) 🥂 shielded-expedition.88f17d1d14 => OpenAckConnection(OpenAck { Attributes { connection_id: connection-681, client_id: 07-tendermint-1570, counterparty_connection_id: connection-2222, counterparty_client_id: 07-tendermint-2382 } }) at height 0-68924
+2024-02-26T03:50:08.415902Z  INFO ThreadId(01) 🥂 osmo-test-5 => OpenConfirmConnection(OpenConfirm { Attributes { connection_id: connection-2222, client_id: 07-tendermint-2382, counterparty_connection_id: connection-681, counterparty_client_id: 07-tendermint-1570 } }) at height 5-5632908
+2024-02-26T03:50:11.497825Z  INFO ThreadId(01) connection handshake already finished for Connection { delay_period: 0ns, a_side: ConnectionSide { chain: BaseChainHandle { chain_id: shielded-expedition.88f17d1d14 }, client_id: 07-tendermint-1570, connection_id: connection-681 }, b_side: ConnectionSide { chain: BaseChainHandle { chain_id: osmo-test-5 }, client_id: 07-tendermint-2382, connection_id: connection-2222 } }
+2024-02-26T03:50:25.601446Z  INFO ThreadId(01) 🎊  shielded-expedition.88f17d1d14 => OpenInitChannel(OpenInit { port_id: transfer, channel_id: channel-451, connection_id: None, counterparty_port_id: transfer, counterparty_channel_id: None }) at height 0-68927
+2024-02-26T03:50:44.203622Z  INFO ThreadId(01) 🎊  osmo-test-5 => OpenTryChannel(OpenTry { port_id: transfer, channel_id: channel-5901, connection_id: connection-2222, counterparty_port_id: transfer, counterparty_channel_id: channel-451 }) at height 5-5632917
+2024-02-26T03:51:09.222117Z  INFO ThreadId(01) 🎊  shielded-expedition.88f17d1d14 => OpenAckChannel(OpenAck { port_id: transfer, channel_id: channel-451, connection_id: connection-681, counterparty_port_id: transfer, counterparty_channel_id: channel-5901 }) at height 0-68931
+2024-02-26T03:51:25.162830Z  INFO ThreadId(01) 🎊  osmo-test-5 => OpenConfirmChannel(OpenConfirm { port_id: transfer, channel_id: channel-5901, connection_id: connection-2222, counterparty_port_id: transfer, counterparty_channel_id: channel-451 }) at height 5-5632927
+2024-02-26T03:51:28.292791Z  INFO ThreadId(01) channel handshake already finished for Channel { ordering: ORDER_UNORDERED, a_side: ChannelSide { chain: BaseChainHandle { chain_id: shielded-expedition.88f17d1d14 }, client_id: 07-tendermint-1570, connection_id: connection-681, port_id: transfer, channel_id: channel-451, version: None }, b_side: ChannelSide { chain: BaseChainHandle { chain_id: osmo-test-5 }, client_id: 07-tendermint-2382, connection_id: connection-2222, port_id: transfer, channel_id: channel-5901, version: None }, connection_delay: 0ns }
+SUCCESS Channel {
+    ordering: Unordered,
+    a_side: ChannelSide {
+        chain: BaseChainHandle {
+            chain_id: ChainId {
+                id: "shielded-expedition.88f17d1d14",
+                version: 0,
+            },
+            runtime_sender: Sender { .. },
+        },
+        client_id: ClientId(
+            "07-tendermint-1570",
+        ),
+        connection_id: ConnectionId(
+            "connection-681",
+        ),
+        port_id: PortId(
+            "transfer",
+        ),
+        channel_id: Some(
+            ChannelId(
+                "channel-451",
+            ),
+        ),
+        version: None,
+    },
+    b_side: ChannelSide {
+        chain: BaseChainHandle {
+            chain_id: ChainId {
+                id: "osmo-test-5",
+                version: 5,
+            },
+            runtime_sender: Sender { .. },
+        },
+        client_id: ClientId(
+            "07-tendermint-2382",
+        ),
+        connection_id: ConnectionId(
+            "connection-2222",
+        ),
+        port_id: PortId(
+            "transfer",
+        ),
+        channel_id: Some(
+            ChannelId(
+                "channel-5901",
+            ),
+        ),
+        version: None,
+    },
+    connection_delay: 0ns,
+}
