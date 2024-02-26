@@ -298,3 +298,27 @@ Inner transaction hash: 8B77E24DF4938F569C0F9B23628246907522B21ED25D64DF9C2B20D4
 Wrapper transaction accepted at height 69174. Used 47 gas.
 Waiting for inner transaction result...
 Transaction was successfully applied at height 69175. Used 10157 gas.
+
+namadac balance --owner shoeiico-spending-key-alias --node http://213.136.71.166:26657
+Last committed epoch: 17
+The application panicked (crashed).
+Message:  context should contain viewing key
+Location: /home/runner/work/namada/namada/crates/apps/src/lib/client/rpc.rs:1161
+
+namadac --base-dir $BASE_DIR_A \
+    ibc-transfer \
+    --amount 1 \
+    --source shoeiico-spending-key-alias \
+    --receiver osmo1zpvstw8rrld3p3y4sd5azzdrmhsc08rde5mnnk \
+Enter your decryption password: 
+Error: 
+   0: The balance of the source tnam1pcqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzmefah is lower than the amount to be transferred. Amount to transfer is 1.000000 tnam1qxvg64psvhwumv3mwrrjfcz0h3t3274hwggyzcee
+   1: The balance of the source tnam1pcqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzmefah is lower than the amount to be transferred. Amount to transfer is 1.000000 tnam1qxvg64psvhwumv3mwrrjfcz0h3t3274hwggyzcee
+
+Location:
+   /home/runner/work/namada/namada/crates/apps/src/lib/cli/client.rs:76
+    --gas-payer shoeiico_namada_relayer \
+    --token naan \
+    --channel-id channel-451 \
+    --node http://213.136.71.166:26657 \
+    --memo tpknam1qp0cyvrh4r5anmslnyda88nrem4easja386jlug369mcw3l3fjqkvueqwqs
