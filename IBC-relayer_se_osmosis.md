@@ -111,13 +111,22 @@ trusting_period = '4days'
 trust_threshold = { numerator = '1', denominator = '3' }
 rpc_timeout = '30s'
 ```
-
-Add relayer keys to Hermes
+# Add relayer accounts to Hermes
+- Install Hermes
+```
+export TAG="v1.7.4-namada-beta7"
+export ARCH="x86_64-unknown-linux-gnu" # or "aarch64-apple-darwin"
+curl -Lo /tmp/hermes.tar.gz https://github.com/heliaxdev/hermes/releases/download/${TAG}/hermes-${TAG}-${ARCH}.tar.gz
+tar -xvzf /tmp/hermes.tar.gz -C /usr/local/bin
+```
+- Add relayer keys to Hermes
+```
 echo "roast collect museum rib lobster custom beach myself trash slice turn kiss december tonight stone aerobic stomach slight web tattoo size lunar cancel width" > ./mnemonic_osmo
 hermes --config $HERMES_CONFIG keys add --chain osmo-test-5 --mnemonic-file ./mnemonic_osmo
 hermes --config $HERMES_CONFIG keys add --chain shielded-expedition.88f17d1d14 --key-file $HOME/.local/share/namada/shielded-expedition.88f17d1d14/wallet.toml  
-
-Create Channel
+```
+#  Create Channel
+```
 hermes --config $HERMES_CONFIG \
   create channel \
   --a-chain shielded-expedition.88f17d1d14 \
@@ -125,6 +134,8 @@ hermes --config $HERMES_CONFIG \
   --a-port transfer \
   --b-port transfer \
   --new-client-connection --yes
+```
+```
 2024-02-26T03:48:02.256900Z  INFO ThreadId(01) running Hermes v1.7.4+38f41c6
 2024-02-26T03:48:02.592797Z  INFO ThreadId(01) Creating new clients, new connection, and a new channel with order ORDER_UNORDERED
 2024-02-26T03:48:17.968223Z  INFO ThreadId(01) foreign_client.create{client=osmo-test-5->shielded-expedition.88f17d1d14:07-tendermint-0}: 🍭 client was created successfully id=07-tendermint-1570
@@ -191,7 +202,8 @@ SUCCESS Channel {
     },
     connection_delay: 0ns,
 }
-
+```
+```
 namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
 naan: 259.672897
 
@@ -202,8 +214,11 @@ balances:
 pagination:
   next_key: null
   total: "0"
+```
 
+# IBC transfer Namada <-> Osmosis 
 export BASE_DIR_A=$HOME/.local/share/namada
+```
 namadac --base-dir $BASE_DIR_A \
     ibc-transfer \
     --amount 1 \
@@ -213,6 +228,8 @@ namadac --base-dir $BASE_DIR_A \
     --channel-id channel-451 \
     --node http://213.136.71.166:26657 \
     --memo tpknam1qp0cyvrh4r5anmslnyda88nrem4easja386jlug369mcw3l3fjqkvueqwqs
+```
+```
 Enter your decryption password: 
 Transaction added to mempool.
 Wrapper transaction hash: E4D73493D344116F9E8ECF191EC9EB9CFCA69AD68F69B5823751360F3E495E8A
@@ -220,7 +237,9 @@ Inner transaction hash: 9DE7FD3F4AFC34897F0070CF7D1BAFF692B085275D31F6CE96E0E9D0
 Wrapper transaction accepted at height 69044. Used 26 gas.
 Waiting for inner transaction result...
 Transaction was successfully applied at height 69045. Used 6193 gas.
+```
 
+```
 osmosisd tx ibc-transfer transfer \
   transfer \
   channel-5901 \
@@ -234,6 +253,7 @@ osmosisd tx ibc-transfer transfer \
   --home "$HOME/.osmosisd" \
   --chain-id osmo-test-5 \
   --yes
+```
 Enter keyring passphrase (attempt 1/3):
 gas estimate: 131186
 code: 0
@@ -249,7 +269,8 @@ raw_log: '[]'
 timestamp: ""
 tx: null
 txhash: 52DCC3BDE099A0768EF01756EB19C7EE227B68F33914BE6185D7892209B9B4ED
-
+```
+```
 namadac balance --owner shoeiico_namada_relayer --node http://213.136.71.166:26657
 naan: 253.672897
 transfer/channel-451/uosmo: 1000000
@@ -263,4 +284,4 @@ balances:
 pagination:
   next_key: null
   total: "0"
-
+```
