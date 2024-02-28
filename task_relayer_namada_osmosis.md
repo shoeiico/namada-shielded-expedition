@@ -16,6 +16,11 @@ _This docuement starts from step 3 because we mainly focus on IBC relayer operat
 Namada <-> Osmosis  
 channel-451 <-> channel-5901
 
+Transactions:  
+[create channel](https://testnet.mintscan.io/osmosis-testnet/txs/1647A64400C2F1137230AD5B98302C0DA5CE6A0F855175850B691B31B5C6A394?height=5632882)  
+[transfer osmo](https://testnet.mintscan.io/osmosis-testnet/txs/52DCC3BDE099A0768EF01756EB19C7EE227B68F33914BE6185D7892209B9B4ED?height=5633197)  
+[receive naan](https://testnet.mintscan.io/osmosis-testnet/txs/EAB0F905A560F23D8B573E7A9488DA1070FE912E9525248C6138E8D106D2827C?height=5633241)
+
 # Prepare accounts for Osmosis and Namada
 - Generate a new account for osmos
 ```
